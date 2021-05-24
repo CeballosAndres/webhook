@@ -57,6 +57,51 @@ const verbos = {
   },  
 }
 
+const pronombres = {
+  Ich : {
+    Nominativ   : "Ich",
+    Dativ       : "mir",
+    Akkusativ   : "mich",
+    Genitiv     : "meiner",
+  },
+  du : {
+    Nominativ   : "du",
+    Dativ       : "dir",
+    Akkusativ   : "dich",
+    Genitiv     : "deiner",
+  },
+  sie : {
+    Nominativ   : "sie",
+    Dativ       : "ihr",
+    Akkusativ   : "sie",
+    Genitiv     : "ihrer",
+  },
+  er : {
+    Nominativ   : "er",
+    Dativ       : "ihm",
+    Akkusativ   : "ihn",
+    Genitiv     : "seiner",
+  },
+  es : {
+    Nominativ   : "es",
+    Dativ       : "ihm",
+    Akkusativ   : "es",
+    Genitiv     : "seiner",
+  },
+  wir : {
+    Nominativ   : "wir",
+    Dativ       : "uns",
+    Akkusativ   : "uns",
+    Genitiv     : "unser",
+  },
+  ihr : {
+    Nominativ   : "ihr",
+    Dativ       : "euch",
+    Akkusativ   : "euch",
+    Genitiv     : "euer",
+  },
+}
+
 const restService = express();
 
 restService.use(
@@ -91,29 +136,49 @@ restService.post("/webhook", function(req, res) {
   });
 });
 
-function selectAction(req){
-  const action = req.body.queryResult.parameters;
-  if (action.verbosmodales){
-    return verboModal(req);
-  } 
 
-  return "queonda";
+function selectAction(req){
+  const action = req.body.queryResult.intent.displayName;
+  if (action == "ConjugarVerbosModales"){
+    return verboModal(req);
+  } else if (action == "ConjugarPronombresPersonales") {
+    return pronombrePersonal(req);
+  }
+
+  return "No conozco ese verbo o pronombre";
 }
+
 
 function verboModal(req){
   // obtener el verbo y normalizarlo
-  const verbo = removeDiacritics(req.body.queryResult.parameters.verbosmodales).toLowerCase();
+  const verbo = removeDiacritics(req.body.queryResult.parameters.verbosModales).toLowerCase();
   // caso de contar con el sujeto
   if (req.body.queryResult.parameters.sujeto){
     const sujeto = req.body.queryResult.parameters.sujeto;
-    return `El verbo ${req.body.queryResult.parameters.verbosmodales} se conjuga: ${verbos[verbo][sujeto]}`;
+    return `${req.body.queryResult.parameters.verbosModales} para ${sujeto} se conjuga: ${verbos[verbo][sujeto]}`;
   }
+
   // caso de no contar con el sujeto enviar todos las conjugaciones
-  let response = `El verbo ${req.body.queryResult.parameters.verbosmodales} se conjuga:\n`;
+  let response = `El verbo ${req.body.queryResult.parameters.verbosModales} se conjuga:\n`;
   for (let elem in verbos[verbo]){
     response += `${elem} -> ${verbos[verbo][elem]} \n`
   }
+  return response;
+}
 
+function pronombrePersonal(req){
+  // obtener el sujeto
+  const sujeto = req.body.queryResult.parameters.sujeto;
+  // caso de especificar el modo verbal
+  if (req.body.queryResult.parameters.modoVerbal){
+    const modoVerbal = req.body.queryResult.parameters.modoVerbal;
+    return `Es: ${pronombres[sujeto][modoVerbal]}`;
+  }
+  // caso de no especificar el modo verbal regresar todos
+  let response = `El sujeto ${sujeto} se conjuga:\n`;
+  for (let elem in pronombres[verbo]){
+    response += `${elem} - ${verbos[sujeto][elem]} \n`
+  }
   return response;
 }
 
