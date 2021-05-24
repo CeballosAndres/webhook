@@ -5,10 +5,56 @@ const bodyParser = require("body-parser");
 const removeDiacritics = require('diacritics').remove;
 
 const verbos = {
-  Konnen : {
-    ich : "musse",
-    du : "musst"
-  }  
+  mussen : {
+    Ich : "musse",
+    du  : "musst",
+    er  : "musse",
+    sie : "musse",
+    es  : "musse",
+    ihr : "müsst",
+    wir : "müssen",
+    sie : "müssen"
+  },  
+  konnen : {
+    Ich : "kann",
+    du  : "kannst",
+    er  : "kann",
+    sie : "kann",
+    es  : "kann",
+    ihr : "könnt",
+    wir : "können",
+    sie : "können"
+  },  
+  wollen : {
+    Ich : "will",
+    du  : "willst",
+    er  : "will",
+    sie : "will",
+    es  : "will",
+    ihr : "wöllt",
+    wir : "wöllen",
+    sie : "wöllen"
+  },  
+  durfen : {
+    Ich : "darf",
+    du  : "darst",
+    er  : "darf",
+    sie : "darf",
+    es  : "darf",
+    ihr : "dürt",
+    wir : "dürfen",
+    sie : "dürfen"
+  },  
+  sollen : {
+    Ich : "soll",
+    du  : "sollst",
+    er  : "soll",
+    sie : "soll",
+    es  : "soll",
+    ihr : "söllt",
+    wir : "söllen",
+    sie : "söllen"
+  },  
 }
 
 const restService = express();
@@ -55,15 +101,17 @@ function selectAction(req){
 }
 
 function verboModal(req){
-  const verbo = removeDiacritics(req.body.queryResult.parameters.verbosmodales);
+  // obtener el verbo y normalizarlo
+  const verbo = removeDiacritics(req.body.queryResult.parameters.verbosmodales).toLowerCase();
+  // caso de contar con el sujeto
   if (req.body.queryResult.parameters.sujeto){
     const sujeto = req.body.queryResult.parameters.sujeto;
-    return verbos[verbo][sujeto];
+    return `El verbo ${req.body.queryResult.parameters.verbosmodales} se conjuga: ${verbos[verbo][sujeto]}`;
   }
-
-  let response = "";
-  for (let v in verbos[verbo]){
-    response += `${v} -> ${verbos[verbo][v]} \n`
+  // caso de no contar con el sujeto enviar todos las conjugaciones
+  let response = `El verbo ${req.body.queryResult.parameters.verbosmodales} se conjuga:\n`;
+  for (let elem in verbos[verbo]){
+    response += `${elem} -> ${verbos[verbo][elem]} \n`
   }
 
   return response;
