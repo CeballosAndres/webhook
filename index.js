@@ -140,16 +140,16 @@ restService.post("/webhook", function(req, res) {
 function selectAction(req){
   const action = req.body.queryResult.intent.displayName;
   if (action == "ConjugarVerbosModales"){
-    return verboModal(req);
+    return conjugarVerbosModales(req);
   } else if (action == "ConjugarPronombresPersonales") {
-    return ConjugarPronombresPersonales(req);
+    return conjugarPronombresPersonales(req);
   }
 
   return "No conozco ese verbo o pronombre";
 }
 
 
-function verboModal(req){
+function conjugarVerbosModales(req){
   // obtener el verbo y normalizarlo
   const verbo = removeDiacritics(req.body.queryResult.parameters.verbosModales).toLowerCase();
   // caso de contar con el sujeto
@@ -166,7 +166,7 @@ function verboModal(req){
   return response;
 }
 
-function ConjugarPronombresPersonales(req){
+function conjugarPronombresPersonales(req){
   // obtener el sujeto
   const sujeto = req.body.queryResult.parameters.sujeto;
   // caso de especificar el modo verbal
@@ -181,6 +181,7 @@ function ConjugarPronombresPersonales(req){
   }
   return response;
 }
+
 
 restService.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");
