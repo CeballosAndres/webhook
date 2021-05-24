@@ -35,7 +35,7 @@ restService.post("/webhook", function(req, res) {
   "fulfillmentMessages": [
     {
       "text": {
-        "text": speech
+        "text": [speech]
       }
     }
   ],
@@ -58,9 +58,15 @@ function verboModal(req){
   const verbo = removeDiacritics(req.body.queryResult.parameters.verbosmodales);
   if (req.body.queryResult.parameters.sujeto){
     const sujeto = req.body.queryResult.parameters.sujeto;
-    return [verbos[verbo][sujeto]];
+    return verbos[verbo][sujeto];
   }
-  return Object.values(verbos[verbo]);
+
+  let response = "";
+  for (let v in verbos[verbo]){
+    response += `${v} -> ${verbos[verbo][v]} \n`
+  }
+
+  return response;
 }
 
 restService.listen(process.env.PORT || 8000, function() {
