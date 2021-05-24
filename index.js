@@ -142,7 +142,7 @@ function selectAction(req){
   if (action == "ConjugarVerbosModales"){
     return verboModal(req);
   } else if (action == "ConjugarPronombresPersonales") {
-    return pronombrePersonal(req);
+    return ConjugarPronombresPersonales(req);
   }
 
   return "No conozco ese verbo o pronombre";
@@ -166,7 +166,7 @@ function verboModal(req){
   return response;
 }
 
-function pronombrePersonal(req){
+function ConjugarPronombresPersonales(req){
   // obtener el sujeto
   const sujeto = req.body.queryResult.parameters.sujeto;
   // caso de especificar el modo verbal
@@ -175,9 +175,9 @@ function pronombrePersonal(req){
     return `Es: ${pronombres[sujeto][modoVerbal]}`;
   }
   // caso de no especificar el modo verbal regresar todos
-  let response = `El sujeto ${sujeto} se conjuga:\n`;
-  for (let elem in pronombres[verbo]){
-    response += `${elem} - ${verbos[sujeto][elem]} \n`
+  let response = `Se conjuga:\n`;
+  for (let elem in pronombres[sujeto]){
+    response += `${elem} - ${pronombres[sujeto][elem]} \n`
   }
   return response;
 }
