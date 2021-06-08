@@ -139,7 +139,9 @@ restService.post("/webhook", function(req, res) {
 
 function selectAction(req){
   const action = req.body.queryResult.intent.displayName;
-  if (action == "ConjugarVerbosModales"){
+  if (action == "wakeup"){
+    console.log("Hello");
+  } else if (action == "ConjugarVerbosModales"){
     return conjugarVerbosModales(req);
   } else if (action == "ConjugarPronombresPersonales") {
     return conjugarPronombresPersonales(req);
