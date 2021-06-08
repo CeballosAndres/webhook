@@ -6,60 +6,87 @@ const removeDiacritics = require('diacritics').remove;
 
 const verbos = {
   mussen : {
-    Ich : "musse",
+    ich : "musse",
     du  : "musst",
     er  : "musse",
     sie : "musse",
     es  : "musse",
     ihr : "müsst",
     wir : "müssen",
-    sie : "müssen"
+    sie : "müssen",
+    Sie : "müssen"
   },  
   konnen : {
-    Ich : "kann",
+    ich : "kann",
     du  : "kannst",
     er  : "kann",
     sie : "kann",
     es  : "kann",
     ihr : "könnt",
     wir : "können",
-    sie : "können"
+    sie : "können",
+    Sie : "können"
   },  
   wollen : {
-    Ich : "will",
+    ich : "will",
     du  : "willst",
     er  : "will",
     sie : "will",
     es  : "will",
-    ihr : "wöllt",
-    wir : "wöllen",
-    sie : "wöllen"
+    ihr : "wollt",
+    wir : "wollen",
+    sie : "wollen",
+    Sie : "wollen"
   },  
   durfen : {
-    Ich : "darf",
+    ich : "darf",
     du  : "darst",
     er  : "darf",
     sie : "darf",
     es  : "darf",
     ihr : "dürt",
     wir : "dürfen",
-    sie : "dürfen"
+    sie : "dürfen",
+    Sie : "dürfen"
   },  
   sollen : {
-    Ich : "soll",
+    ich : "soll",
     du  : "sollst",
     er  : "soll",
     sie : "soll",
     es  : "soll",
-    ihr : "söllt",
-    wir : "söllen",
-    sie : "söllen"
+    ihr : "sollt",
+    wir : "sollen",
+    sie : "sollen",
+    Sie : "sollen"
   },  
+  mochten : {
+    ich : "möchte",
+    du  : "möchtest",
+    er  : "möchte",
+    sie : "möchte",
+    es  : "möchte",
+    ihr : "möchtet",
+    wir : "möchten",
+    sie : "möchten",
+    Sie : "möchten"
+  },  
+  mogen : {
+    ich : "mag",
+    du  : "magst",
+    er  : "mag",
+    sie : "mag",
+    es  : "mag",
+    ihr : "mögt",
+    wir : "mögen",
+    sie : "mögen",
+    Sie : "mögen"
+  }
 }
 
 const pronombres = {
-  Ich : {
-    Nominativ   : "Ich",
+  ich : {
+    Nominativ   : "ich",
     Dativ       : "mir",
     Akkusativ   : "mich",
     Genitiv     : "meiner",
@@ -100,6 +127,12 @@ const pronombres = {
     Akkusativ   : "euch",
     Genitiv     : "euer",
   },
+  Sie : {
+    Nominativ   : "Sie",
+    Dativ       : "Ihr",
+    Akkusativ   : "Sie",
+    Genitiv     : "Ihrer",
+  }
 }
 
 const restService = express();
