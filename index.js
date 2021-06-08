@@ -139,15 +139,13 @@ restService.post("/webhook", function(req, res) {
 
 function selectAction(req){
   const action = req.body.queryResult.intent.displayName;
-  if (action == "wakeup"){
-    console.log("Hello");
+  if (action == "Saludar"){
+    console.log("Se recibió saludo para prender motores!");
   } else if (action == "ConjugarVerbosModales"){
     return conjugarVerbosModales(req);
   } else if (action == "ConjugarPronombresPersonales") {
     return conjugarPronombresPersonales(req);
   }
-
-  return "No conozco ese verbo o pronombre";
 }
 
 
