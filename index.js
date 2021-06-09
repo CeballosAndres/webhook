@@ -190,7 +190,7 @@ function conjugarVerbosModales(req){
     const sujeto = req.body.queryResult.parameters.sujeto;
     if (sujeto == "sie"){
       return `${req.body.queryResult.parameters.verbosModales} para ${sujeto} `+
-      `se conjuga:\n 2da persona: ${verbos[verbo]["sie"]}\n`;
+      `se conjuga:\n 2da persona: ${verbos[verbo]["sie"]}\n` +
       `3ra persona: ${verbos[verbo]["Sie"]}`;
     }
     return `${req.body.queryResult.parameters.verbosModales} para ${sujeto} se conjuga: ${verbos[verbo][sujeto]}`;
