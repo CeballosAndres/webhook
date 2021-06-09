@@ -184,10 +184,15 @@ function selectAction(req){
 
 function conjugarVerbosModales(req){
   // obtener el verbo y normalizarlo
-  const verbo = removeDiacritics(req.body.queryResult.parameters.verbosModales).toLowerCase();
+  const verbo = removeDiacritics(req.body.queryResult.parameters.verbosModales.toLowerCase());
   // caso de contar con el sujeto
   if (req.body.queryResult.parameters.sujeto){
     const sujeto = req.body.queryResult.parameters.sujeto;
+    if (sujeto == "sie"){
+      return `${req.body.queryResult.parameters.verbosModales} para ${sujeto} `+
+      `se conjuga:\n 2da persona: ${verbos[verbo]["sie"]}\n`;
+      `3ra persona: ${verbos[verbo]["Sie"]}`;
+    }
     return `${req.body.queryResult.parameters.verbosModales} para ${sujeto} se conjuga: ${verbos[verbo][sujeto]}`;
   }
 
