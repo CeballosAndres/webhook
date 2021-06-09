@@ -13,7 +13,6 @@ const verbos = {
     es  : "musse",
     ihr : "müsst",
     wir : "müssen",
-    sie : "müssen",
     Sie : "müssen"
   },  
   konnen : {
@@ -24,7 +23,6 @@ const verbos = {
     es  : "kann",
     ihr : "könnt",
     wir : "können",
-    sie : "können",
     Sie : "können"
   },  
   wollen : {
@@ -35,7 +33,6 @@ const verbos = {
     es  : "will",
     ihr : "wollt",
     wir : "wollen",
-    sie : "wollen",
     Sie : "wollen"
   },  
   durfen : {
@@ -46,7 +43,6 @@ const verbos = {
     es  : "darf",
     ihr : "dürt",
     wir : "dürfen",
-    sie : "dürfen",
     Sie : "dürfen"
   },  
   sollen : {
@@ -57,7 +53,6 @@ const verbos = {
     es  : "soll",
     ihr : "sollt",
     wir : "sollen",
-    sie : "sollen",
     Sie : "sollen"
   },  
   mochten : {
@@ -68,7 +63,6 @@ const verbos = {
     es  : "möchte",
     ihr : "möchtet",
     wir : "möchten",
-    sie : "möchten",
     Sie : "möchten"
   },  
   mogen : {
@@ -79,7 +73,6 @@ const verbos = {
     es  : "mag",
     ihr : "mögt",
     wir : "mögen",
-    sie : "mögen",
     Sie : "mögen"
   }
 }
@@ -190,7 +183,7 @@ function conjugarVerbosModales(req){
     const sujeto = req.body.queryResult.parameters.sujeto;
     if (sujeto == "sie"){
       return `${req.body.queryResult.parameters.verbosModales} para ${sujeto} `+
-      `se conjuga:\n 2da persona: ${verbos[verbo]["sie"]}\n` +
+      `se conjuga:\n2da persona: ${verbos[verbo]["sie"]}\n` +
       `3ra persona: ${verbos[verbo]["Sie"]}`;
     }
     return `${req.body.queryResult.parameters.verbosModales} para ${sujeto} se conjuga: ${verbos[verbo][sujeto]}`;
