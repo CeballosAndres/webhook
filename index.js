@@ -7,7 +7,6 @@ const removeDiacritics = require('diacritics').remove;
 const verbos = {
   mussen : {
     ich : "muss",
-    Ich : "muss",
     du  : "musst",
     er  : "muss",
     sie : "muss",
