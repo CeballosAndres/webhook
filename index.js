@@ -186,7 +186,6 @@ function conjugarVerbosModales(req){
       `se conjuga:\n2da persona: ${verbos[verbo]["sie"]}\n` +
       `3ra persona: ${verbos[verbo]["Sie"]}`;
     }
-    sujeto = sujeto.toLowerCase();
     return `${req.body.queryResult.parameters.verbosModales} para ${sujeto} se conjuga: ${verbos[verbo][sujeto]}`;
   }
 
